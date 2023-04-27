@@ -190,5 +190,23 @@ RSpec.describe Game do
 
       expect(subject.cell_alive?(x: 1, y: 1)).to be(false)
     end
+
+    it 'if there is a single live cell on the baord it dies' do
+      subject.cell_at(x: 0, y: 0).alive = true
+      subject.cell_at(x: 1, y: 0).alive = true
+      subject.cell_at(x: 2, y: 0).alive = true
+
+      subject.tick
+
+      expect(subject.cell_alive?(x: 0, y: 0)).to be(false)
+      expect(subject.cell_alive?(x: 1, y: 0)).to be(true)
+      expect(subject.cell_alive?(x: 2, y: 0)).to be(false)
+      expect(subject.cell_alive?(x: 0, y: 1)).to be(false)
+      expect(subject.cell_alive?(x: 1, y: 1)).to be(true)
+      expect(subject.cell_alive?(x: 2, y: 1)).to be(false)
+      expect(subject.cell_alive?(x: 0, y: 2)).to be(false)
+      expect(subject.cell_alive?(x: 1, y: 2)).to be(false)
+      expect(subject.cell_alive?(x: 2, y: 2)).to be(false)
+    end
   end
 end
