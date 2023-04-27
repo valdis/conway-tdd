@@ -25,8 +25,18 @@ class Cell
   end
 
   def tick
+    return tick_alive if alive?
+
+    tick_dead
+  end
+
+  def tick_alive
     return self.alive = true if [2, 3].include?(living_neighbour_count)
 
+    self.alive = false
+  end
+
+  def tick_dead
     self.alive = false
   end
 
