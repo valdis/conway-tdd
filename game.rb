@@ -71,6 +71,10 @@ class Game
     cell_at_for_board(board: @board, x: x, y: y)
   end
 
+  def tick
+    @board.each { |col| col.each(&:tick) }
+  end
+
   private
 
   def cell_at_for_board(board:, x:, y:) # rubocop:disable Naming/MethodParameterName
