@@ -114,9 +114,32 @@ RSpec.describe Cell do
 end
 
 RSpec.describe Game do
-  it 'can tell if the cell at coordinates x:0, y:0 is alive' do
-    game = Game.new([[Cell.new(alive: false)]])
+  context 'when initialising the board' do
+    subject { Game.new([[Cell.new(alive: false)]]) }
+    it 'can tell if the cell at coordinates x:0, y:0 is alive' do
+      expect(subject.cell_alive?(x: 0, y: 0)).to be(false)
+    end
 
-    expect(game.cell_alive?(x: 0, y: 0)).to be(false)
+    context 'when cells get acquinted with their neigbours' do
+      subject do
+        Game.new(
+          [
+            [Cell.new(alive: false), Cell.new(alive: false), Cell.new(alive: false)],
+            [Cell.new(alive: false), Cell.new(alive: false), Cell.new(alive: false)],
+            [Cell.new(alive: false), Cell.new(alive: false), Cell.new(alive: false)]
+          ]
+        )
+      end
+
+      it 'tells that the 0:0 cell has neighbours 1:0, 0:1 and 1:1' do
+        expect(subject.cell_at(x: 0, y: 0).neighbours).to be(
+          [
+            subject.cell_at(x: 0, y: 1),
+            subject.cell_at(x: 1, y: 0),
+            subject.cell_at(x: 1, y: 1)
+          ]
+        )
+      end
+    end
   end
 end
