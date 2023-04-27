@@ -56,6 +56,16 @@ end
 # This class will run the game
 class Game
   def initialize(board)
+    puts board.inspect
     @board = board
+  end
+
+  def cell_alive?(x:, y:) # rubocop:disable Naming/MethodParameterName
+    puts @board.inspect
+    puts x
+    puts y
+    puts @board[x].inspect
+    puts @board[y].inspect
+    @board[x][y].alive?
   end
 end
