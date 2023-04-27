@@ -37,6 +37,8 @@ class Cell
   end
 
   def tick_dead
+    return self.alive = true if living_neighbour_count == 3
+
     self.alive = false
   end
 
