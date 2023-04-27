@@ -79,5 +79,18 @@ RSpec.describe Cell do
         expect(subject.alive?).to eq(true)
       end
     end
+
+    context 'the cell is dead' do
+      subject { Cell.new(alive: false) }
+
+      it 'stays dead if there are less than 3 neighbours' do
+        1.upto(2) { |idx| neighbours[idx].alive = true }
+        subject.add_neighbours(neighbours)
+
+        subject.tick
+
+        expect(subject.alive?).to eq(false)
+      end
+    end
   end
 end
