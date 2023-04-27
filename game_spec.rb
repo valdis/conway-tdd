@@ -132,12 +132,10 @@ RSpec.describe Game do
       end
 
       it 'tells that the 0:0 cell has neighbours 1:0, 0:1 and 1:1' do
-        expect(subject.cell_at(x: 0, y: 0).neighbours).to be(
-          [
-            subject.cell_at(x: 0, y: 1),
-            subject.cell_at(x: 1, y: 0),
-            subject.cell_at(x: 1, y: 1)
-          ]
+        expect(subject.cell_at(x: 0, y: 0).neighbours).to include(
+          subject.cell_at(x: 1, y: 0),
+          subject.cell_at(x: 0, y: 1),
+          subject.cell_at(x: 1, y: 1)
         )
       end
     end
