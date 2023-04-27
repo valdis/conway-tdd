@@ -24,22 +24,13 @@ class Cell
     @neighbours.map(&:alive).sum
   end
 
+  def cache_to_live_or_die
+    self.cached_live_or_die = live_or_die?
+  end
+
   def tick
-    return tick_alive if alive?
-
-    tick_dead
-  end
-
-  def tick_alive
-    return self.alive = true if [2, 3].include?(living_neighbour_count)
-
-    self.alive = false
-  end
-
-  def tick_dead
-    return self.alive = true if living_neighbour_count == 3
-
-    self.alive = false
+    self.alive = cached_live_or_die.nil? ? live_or_die? : cached_live_or_die
+    self.cached_live_or_die = nil
   end
 
   def inspect
@@ -47,6 +38,28 @@ class Cell
   end
 
   private
+
+  attr_accessor :cached_live_or_die
+
+  def live_or_die?
+    if alive?
+      live_or_die_when_alive?
+    else
+      live_or_die_when_dead?
+    end
+  end
+
+  def live_or_die_when_alive?
+    return true if [2, 3].include?(living_neighbour_count)
+
+    false
+  end
+
+  def live_or_die_when_dead?
+    return true if living_neighbour_count == 3
+
+    false
+  end
 
   def api_alive_to_internal(alive)
     alive ? 1 : 0
@@ -72,7 +85,8 @@ class Game
   end
 
   def tick
-    @board.each { |col| col.each(&:tick) }
+    @board.each { |col| col.each(&:cache_to_live_or_die) }
+    @board.each { |col| col.each(&:tick) } # rubocop:disable Style/CombinableLoops
   end
 
   private
