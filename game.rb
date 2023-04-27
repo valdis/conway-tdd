@@ -1,0 +1,42 @@
+# frozen_string_literal: true
+
+# it's the cell
+class Cell
+  attr_reader :alive, :neighbours
+
+  def initialize(alive: false)
+    @alive = api_alive_to_internal(alive)
+  end
+
+  def alive=(alive)
+    @alive = api_alive_to_internal(alive)
+  end
+
+  def alive?
+    internal_alive_to_api(@alive)
+  end
+
+  def add_neighbours(neighbours)
+    @neighbours = neighbours
+  end
+
+  def living_neighbour_count
+    @neighbours.map(&:alive).sum
+  end
+
+  def tick
+    return self.alive = true if [2, 3].include?(living_neighbour_count)
+
+    self.alive = false
+  end
+
+  private
+
+  def api_alive_to_internal(alive)
+    alive ? 1 : 0
+  end
+
+  def internal_alive_to_api(internal_alive)
+    internal_alive == 1
+  end
+end
