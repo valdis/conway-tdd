@@ -114,9 +114,9 @@ RSpec.describe Cell do
 end
 
 RSpec.describe Game do
-  it 'can tell if the cell at coordinates x:1, y:1 is alive' do
+  it 'can tell if the cell at coordinates x:0, y:0 is alive' do
     game = Game.new([[Cell.new(alive: false)]])
 
-    expect(game.cell_alive?(x: 1, y: 1)).to be(false)
+    expect(game.cell_alive?(x: 0, y: 0)).to be(false)
   end
 end
