@@ -52,3 +52,6 @@ class Cell
     internal_alive == 1
   end
 end
+
+class Game
+end
