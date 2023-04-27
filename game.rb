@@ -53,5 +53,9 @@ class Cell
   end
 end
 
+# This class will run the game
 class Game
+  def initialize(board)
+    @board = board
+  end
 end
