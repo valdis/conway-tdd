@@ -138,6 +138,43 @@ RSpec.describe Game do
           subject.cell_at(x: 1, y: 1)
         )
       end
+
+      it 'tells that the 0:2 cell has neighbours 1:2, 0:1 and 1:1' do
+        expect(subject.cell_at(x: 0, y: 2).neighbours).to include(
+          subject.cell_at(x: 0, y: 1),
+          subject.cell_at(x: 1, y: 1),
+          subject.cell_at(x: 1, y: 2)
+        )
+      end
+
+      it 'tells that the 2:0 cell has neighbours 2:1, 1:0 and 1:1' do
+        expect(subject.cell_at(x: 2, y: 0).neighbours).to include(
+          subject.cell_at(x: 1, y: 0),
+          subject.cell_at(x: 1, y: 1),
+          subject.cell_at(x: 2, y: 1)
+        )
+      end
+
+      it 'tells that the 2:2 cell has neighbours 2:1, 1:2 and 1:1' do
+        expect(subject.cell_at(x: 2, y: 2).neighbours).to include(
+          subject.cell_at(x: 1, y: 2),
+          subject.cell_at(x: 1, y: 1),
+          subject.cell_at(x: 2, y: 1)
+        )
+      end
+
+      it 'tells that the 1:1 cell has all 8 neighbours linked' do
+        expect(subject.cell_at(x: 1, y: 1).neighbours).to include(
+          subject.cell_at(x: 0, y: 0),
+          subject.cell_at(x: 1, y: 0),
+          subject.cell_at(x: 2, y: 0),
+          subject.cell_at(x: 0, y: 1),
+          subject.cell_at(x: 2, y: 1),
+          subject.cell_at(x: 0, y: 2),
+          subject.cell_at(x: 1, y: 2),
+          subject.cell_at(x: 2, y: 2)
+        )
+      end
     end
   end
 end
